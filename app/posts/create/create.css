@@ -1,0 +1,117 @@
+
+.animated-bg {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    background: linear-gradient(
+        -45deg,
+        #0f172a,
+        #312e81,
+        #1e1b4b,
+        #4338ca
+    );
+
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    transition: filter 0.5s ease;
+}
+
+.animated-bg:hover {
+    filter: saturate(1.5);
+}
+
+.animated-bg::before,
+.animated-bg::after {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.animated-bg::before {
+    background: #818cf8;
+    top: -100px;
+    left: -100px;
+    animation: floatOne 8s ease-in-out infinite alternate;
+}
+
+.animated-bg::after {
+    background: #c084fc;
+    bottom: -100px;
+    right: -100px;
+    animation: floatTwo 10s ease-in-out infinite alternate;
+}
+
+.post-form {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.post-form:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+}
+
+.post-input {
+    transition: all 0.3s ease;
+}
+
+.post-input:hover {
+    border-color: #6366f1;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes floatOne {
+    from { transform: translate(0, 0); }
+    to { transform: translate(150px, 100px); }
+}
+
+@keyframes floatTwo {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-150px, -100px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animated-bg,
+    .animated-bg::before,
+    .animated-bg::after {
+        animation: none;
+    }
+
+    .post-form,
+    .post-input {
+        transition: none;
+    }
+}
+
+.cursor-glow {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(129, 140, 248, 0.3) 0%,
+        rgba(192, 132, 252, 0.12) 40%,
+        transparent 70%
+    );
+
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+
+    transition:
+        left 0.15s ease-out,
+        top 0.15s ease-out;
+}

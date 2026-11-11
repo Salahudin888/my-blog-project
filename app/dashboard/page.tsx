@@ -12,10 +12,14 @@ export default async function Dashboard() {
     if (!session) {
       redirect("/login")
  }
+
  const users = await getcollection("users")
+ 
  const user = await users.findOne({
   _id : new ObjectId(session.userId)
  })
+
+ if(!user) redirect("/login")
   return (
   <main className="dashboard">
     <div className="dashboardCard">
