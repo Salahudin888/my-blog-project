@@ -1,7 +1,7 @@
 
 "use client"
-
-import { useState } from "react"
+import { createPost } from "@/app/actions/post"
+import { useActionState, useState } from "react"
 import "./create.css"
 
 export default function CreatePost() {
@@ -13,6 +13,7 @@ export default function CreatePost() {
             y: e.clientY,
         })
     }
+    const[state,formAction,isPending]=useActionState(createPost,null)
 
     return (
         <main
@@ -39,9 +40,11 @@ export default function CreatePost() {
                     </p>
                 </div>
 
-                <form className="post-form space-y-6 bg-white/95 backdrop-blur-xl rounded-2xl p-8 shadow-2xl">
+                <form action={formAction} className="post-form space-y-6 bg-white/95 backdrop-blur-xl rounded-2xl p-8 shadow-2xl">
 
                     <div>
+                        {state?.error && <p className="text-red-700" role="alert">{state.error}</p>}
+                        {state?.success && <p className="text-green-700" role="status">{state.success}</p>}
                         <label htmlFor="title"
                             className="block font-semibold text-gray-700 mb-2">
                             Post Title
@@ -52,7 +55,7 @@ export default function CreatePost() {
                             type="text"
                             required
                             placeholder="Enter post title..."
-                            className="post-input w-full border border-gray-300 rounded-xl p-3"
+                            className="post-input w-full border border-gray-300 text-gray-900 rounded-xl p-3"
                         />
                     </div>
 
@@ -67,15 +70,16 @@ export default function CreatePost() {
                             rows={10}
                             required
                             placeholder="Write your post here..."
-                            className="post-input w-full border border-gray-300 rounded-xl p-3 resize-y"
+                            className="post-input w-full border border-gray-300 text-gray-900 rounded-xl p-3 resize-y"
                         />
                     </div>
 
                     <button
-                        type="submit"
+                        type="submit" 
+                        disabled={isPending}
                         className="publish-btn w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl"
                     >
-                        Publish Post
+                      {isPending ? "publishing...":"publish Post"}
                     </button>
 
                 </form>
