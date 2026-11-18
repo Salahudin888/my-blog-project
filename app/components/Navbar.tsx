@@ -19,8 +19,8 @@ export default async function Navbar() {
         <div className="links">
           {session ? (
             <>
+              <Link href="/posts/create">post</Link>
               <Link href="/dashboard">Dashboard</Link>
-
               <form action={logoutUser} className="logoutForm">
                 <button type="submit" className="logoutButton">
                   Logout

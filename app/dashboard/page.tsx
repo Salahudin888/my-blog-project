@@ -3,6 +3,7 @@ import { getSession } from "../lib/session"
 import { redirect } from "next/navigation"
 import { ObjectId } from "mongodb"
 import { getcollection } from "../lib/db"
+import Link from "next/link"
 
 export const instant = false
 
@@ -67,6 +68,12 @@ export default async function Dashboard() {
                   <time className="text-sm text-slate-500">
                     {post.createdAt.toLocaleDateString()}
                   </time>
+                  <Link
+                        href={`/posts/${post._id.toString()}/edit`}
+                         className="mt-4 inline-block rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+                                  >
+                                      Edit post
+                  </Link>
                 </article>
               ))}
             </div>
